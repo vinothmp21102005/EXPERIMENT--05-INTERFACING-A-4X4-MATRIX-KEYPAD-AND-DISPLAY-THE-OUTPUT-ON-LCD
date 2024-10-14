@@ -163,76 +163,175 @@ We are now at the last part of step by step guide on how to simulate STM32 proje
 ## STM 32 CUBE PROGRAM :
 ```
 #include "main.h"
+#include <stdbool.h>
 #include "lcd.h"
-#include<stdbool.h>
-bool Col1,Col2,Col3,Col4;
-void key(void);
 
+bool col1,col2,col3,col4;
+void key();
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-
 int main(void)
 {
-
   HAL_Init();
-  SystemClock_Config();
   MX_GPIO_Init();
-
   while (1)
   {
 	  key();
+	  HAL_Delay(500);
   }
 }
 void key()
 {
-
-
-	Lcd_PortType ports[] = {GPIOA, GPIOA, GPIOA, GPIOA};
-	    Lcd_PinType pins[] = {GPIO_PIN_3, GPIO_PIN_2, GPIO_PIN_1, GPIO_PIN_0};
-	    Lcd_HandleTypeDef lcd;
-
+	Lcd_PortType ports[] = { GPIOA, GPIOA, GPIOA, GPIOA };
+	Lcd_PinType pins[] = {GPIO_PIN_3, GPIO_PIN_2, GPIO_PIN_1, GPIO_PIN_0};
+	Lcd_HandleTypeDef lcd;
 	lcd = Lcd_create(ports, pins, GPIOB, GPIO_PIN_0, GPIOB, GPIO_PIN_1, LCD_4_BIT_MODE);
-	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, 1);
-	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, 1);
-	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, 1);
 
-	 Col1 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_4);
-	 Col2 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_5);
-	 Col3 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_6);
-	 Col4 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7);
-	 Lcd_cursor(&lcd, 0, 1);
-	 if(!Col1)
-	 {
-		 Lcd_string(&lcd, "Key 7 \n");
-	 }
-	 else if(!Col2)
-	 {
-		 Lcd_string(&lcd, "Key 8 \n");
-	 }
-	 else if(!Col3)
-	 {
-		 Lcd_string(&lcd, "Key 9 \n");
-	 }
-	 else
-	 {
-		 Lcd_string(&lcd, "Key % \n");
-	 }
-	 HAL_Delay(500);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_SET);
+
+	col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+	col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+	col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+	col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+
+ 	if(!col1)
+	{
+		Lcd_cursor(&lcd,0,1);
+		Lcd_string(&lcd, "key7\n");
+		col1=1;
+	}
+	if(!col2)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "key8\n");
+			col2=1;
+		}
+	if(!col3)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "key9\n");
+			col3=1;
+		}
+	if(!col4)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "key/\n");
+			col4=1;
+		}
+
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_SET);
+		col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+		col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+		col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+		col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+
+		if(!col1)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "key4\n");
+			col1=1;
+		}
+		if(!col2)
+			{
+				Lcd_cursor(&lcd,0,1);
+				Lcd_string(&lcd, "key5\n");
+				col2=1;
+			}
+		if(!col3)
+			{
+				Lcd_cursor(&lcd,0,1);
+				Lcd_string(&lcd, "key6\n");
+				col3=1;
+			}
+		if(!col4)
+			{
+				Lcd_cursor(&lcd,0,1);
+				Lcd_string(&lcd, "key*\n");
+				col4=1;
+			}
+ 		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_SET);
+
+				col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+				col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+				col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+				col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+
+				if(!col1)
+				{
+					Lcd_cursor(&lcd,0,1);
+					Lcd_string(&lcd, "key1\n");
+					col1=1;
+				}
+				if(!col2)
+					{
+						Lcd_cursor(&lcd,0,1);
+						Lcd_string(&lcd, "key2\n");
+						col2=1;
+					}
+				if(!col3)
+					{
+						Lcd_cursor(&lcd,0,1);
+						Lcd_string(&lcd, "key3\n");
+						col3=1;
+					}
+				if(!col4)
+					{
+						Lcd_cursor(&lcd,0,1);
+						Lcd_string(&lcd, "key-\n");
+						col4=1;
+					}
+ 				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_RESET);
+
+						col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+						col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+						col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+						col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+						if(!col1)
+						{
+							Lcd_cursor(&lcd,0,1);
+							Lcd_string(&lcd, "keyON/ac\n");
+							col1=1;
+						}
+						if(!col2)
+							{
+								Lcd_cursor(&lcd,0,1);
+								Lcd_string(&lcd, "key0\n");
+								col2=1;
+							}
+						if(!col3)
+							{
+								Lcd_cursor(&lcd,0,1);
+								Lcd_string(&lcd, "key=\n");
+								col3=1;
+							}
+						if(!col4)
+							{
+								Lcd_cursor(&lcd,0,1);
+								Lcd_string(&lcd, "key+\n");
+								col4=1;
+							}
+						HAL_Delay(500);
+
 }
 
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-
-  /** Configure the main internal regulator output voltage
-  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -241,8 +340,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
+
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -256,76 +354,50 @@ void SystemClock_Config(void)
   }
 }
 
-/**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA0 PA1 PA2 PA3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB0 PB1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 }
-
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
-
-/**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
-  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
 void assert_failed(uint8_t *file, uint32_t line)
-{
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
-}
-#endif /* USE_FULL_ASSERT */
+#endif
 
 
 ```
@@ -333,9 +405,11 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 ## Output screen shots of proteus  :
  
- 
+ ![screenshot 1](https://github.com/user-attachments/assets/48b0cae6-c72b-4500-b331-edf4f72a2bf1)
+
  ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- 
+ ![screenshot 2](https://github.com/user-attachments/assets/3f9d9872-8876-40c3-9963-7b9e5d1fd279)
+
  
 ## Result :
 Interfacing a 4x4 keypad with ARM microcontroller are simulated in proteus and the results are verified.
